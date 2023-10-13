@@ -1,0 +1,176 @@
+
+ion-content {
+
+    .header_wrap {
+        position: relative;
+
+        ion-toolbar {
+            --background: #A02428;
+            --color: #fff;
+            padding: 25px 0;
+            height: 220px;
+            position: relative;
+
+            ion-title {
+
+                ion-icon {
+                    position: absolute;
+                    top: 1px;
+                    font-size: 28px;
+                }
+
+                span {
+                    padding-left: 38px;
+                }
+            }
+
+            ion-buttons {
+                position: absolute;
+                top: 0;right: 0;
+            }
+
+            .balance_wrap_text {
+                padding: 0 28px;
+                margin-top: 40px;
+
+                h3 {
+                    line-height: 0px;
+                    font-size: 28px;
+                    font-weight: 500;
+                }
+
+                label {
+                    font-size: 12px;
+                }
+            }
+        }
+
+        .wrap_description {
+            position: absolute;
+            bottom: -60px;
+            left: 0;
+            width: 90%;
+            z-index: 2003;
+            background: #fff;
+            margin: 0 auto;
+            right: 0;
+            box-shadow: 4px 8px 23px -6px rgba(0,0,0,0.75);
+            -webkit-box-shadow: 4px 8px 23px -6px rgba(0,0,0,0.75);
+            -moz-box-shadow: 4px 8px 23px -6px rgba(0,0,0,0.75);
+            border-radius: 10px;
+            padding: 8px 0;
+
+            ion-grid {
+
+                ion-row {
+
+                    ion-col {
+                        text-align: center;
+
+                        &:first-child {
+                            border-right: 0.5px solid #e1e1e1;
+                        }
+
+                        label {
+                            font-size: 14px;
+                        }
+
+                    }
+                }
+            }
+
+        }
+    }
+
+    .content_wrap {
+        margin-top: 80px;
+        padding-bottom: 70px;
+
+        .list_wrap_quick_links {
+
+            ion-item {
+              border-radius: 16px;
+              background: #FFF;
+              box-shadow: 3px 2px 12px -6px rgba(0,0,0,0.75);
+              -webkit-box-shadow: 3px 2px 12px -6px rgba(0,0,0,0.75);
+              -moz-box-shadow: 3px 2px 12px -6px rgba(0,0,0,0.75);
+              margin: 25px 15px;
+              padding: 12px 0;
+
+                &:first-child {
+                    margin: 0px 15px;
+                }
+
+                .date {
+                    display: block;
+                    text-align: center;
+                    padding: 5px 20px 5px 0px;
+                    border-right: 1px solid #ededed;
+
+                    h3 {
+                        line-height: 0;
+                        color: #a6a6a6;
+                    }
+
+                    label {
+                        color: #a6a6a6;
+                    }
+                }
+
+                .name_serv {
+
+                  
+                    h5 {
+                        line-height: 0; 
+                        font-size: 16px;
+                    }
+
+                    span {
+                        font-size: 11px;
+                        color: #a6a6a6;
+                    }
+                }
+
+                .price {
+
+                    h2 {
+                        font-size: 16px;
+                        
+                        &.up {
+                            color: green;
+                        }
+
+                        &.down {
+                            color: red;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+}
+
+ion-footer { 
+    .menu_foot {
+      position: fixed;
+      bottom: 15px;
+      left: 0;right: 0;
+      margin: auto;
+      width: 90%;
+      height:55px;
+      border: 1px solid #dadada;
+      border-radius: 15px;
+      -webkit-box-shadow: 0px 4px 14px -9px rgba(0,0,0,0.75);
+      -moz-box-shadow: 0px 4px 14px -9px rgba(0,0,0,0.75);
+      box-shadow: 0px 4px 14px -9px rgba(0,0,0,0.75);
+      z-index: 1000;
+    
+      ion-tabs {   
+    
+        ion-tab-bar {
+          border-radius: 15px;
+        }
+      }
+    }
+}

@@ -1,0 +1,87 @@
+<ion-content>
+
+  <div class="chat">
+    
+    <div class="chat-title" *ngIf="user_to && service">
+      <h2>{{user_to.name | slice:0:15}}...</h2>
+      <h2>{{service.created}}</h2>
+
+      
+      <ion-icon name="arrow-back-outline" class="arrow-back" (click)="backButton()"></ion-icon>
+      <figure class="avatar">
+        <img src="{{service.portada}}" />
+      </figure>
+
+      <section> 
+        <ion-icon name="list-outline" routerLink="/chats" routerDirection="forward"></ion-icon>
+        <ion-icon name="ellipsis-vertical-outline" (click)="OptionsChat()" *ngIf="service.status == 0"></ion-icon>
+      </section>
+    </div>
+
+    <div class="messages">
+      <div class="messages-content" #messageContent [scrollTop]="messageContent.scrollHeight">
+        
+        <div id="mCSB_1" class="mCustomScrollBox mCS-light mCSB_vertical mCSB_inside" style="max-height: none;" tabindex="0" *ngIf="messages && service">
+          <!-- Contenedor de mensajes -->
+          <div id="mCSB_1_container" #mCSB_1_container class="mCSB_container mCS_y_hidden mCS_no_scrollbar_y" style="position:relative; top:0; left:0;" dir="ltr">
+            <div *ngFor="let msg of messages">
+              <!-- My Message  [ngClass]="{'new': msg.viewer === 0}" -->
+              <div class="message" [ngClass]="{'message-personal': msg.sender === 1, 'message-system': msg.sender === 2}">
+                <figure class="avatar" *ngIf="msg.sender == 0"><img src="{{service.portada}}"></figure>
+                <ion-text *ngIf="msg.type_chat == 0">{{ msg.msg }}</ion-text>
+                
+                <div class="timestamp" *ngIf="msg.sender == 2">
+                  Mensaje del sistema
+                </div>
+
+                <div class="timestamp" *ngIf="msg.sender == 1">
+                  {{msg.date}}
+                  <span *ngIf="msg.viewer == 1">&nbsp;
+                    <ion-icon name="checkmark-done" style="color:#2494FC;"></ion-icon>
+                  </span> 
+                  <span *ngIf="msg.viewer == 0">&nbsp;
+                    <ion-icon name="checkmark"></ion-icon>
+                  </span>
+                </div>
+              </div>
+              <!-- My Message -->
+ 
+            </div> 
+          </div>
+          <!-- Contenedor de mensajes -->
+
+
+          <div id="mCSB_1_scrollbar_vertical" class="mCSB_scrollTools mCSB_1_scrollbar mCS-light mCSB_scrollTools_vertical" style="display: none;">
+            <div class="mCSB_draggerContainer">
+              <div id="mCSB_1_dragger_vertical" class="mCSB_dragger" style="position: absolute; min-height: 30px; top: 0px; height: 0px;" oncontextmenu="return false;">
+                <div class="mCSB_dragger_bar" style="line-height: 30px;"></div>
+              </div>
+              <div class="mCSB_draggerRail"></div>
+            </div>
+          </div>
+        </div>
+ 
+      </div>
+    </div>
+     
+    <div class="message-box">
+     <form>
+      <ion-textarea #message_Input auto-grow="true" 
+        (keyup.enter)="insertMessage()" 
+        (ionInput)="writen($event)" 
+        (ionBlur)="stopWriten()" 
+        name="messageInput"
+        [(ngModel)]="messageInput"
+        maxlength="400" rows="6" cols="20" class="message-input" placeholder="Escribe un mensaje aqui"></ion-textarea>
+      
+      <figure class="message-submit" (click)="insertMessage()">
+        <img src="assets/chat/send.png" alt="">
+      </figure>
+     </form>
+    </div>
+  
+  </div>
+
+  <div class="bg"></div> 
+ 
+</ion-content>

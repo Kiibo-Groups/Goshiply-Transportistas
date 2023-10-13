@@ -1,0 +1,71 @@
+<ion-header no-border>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button text="" icon="chevron-back-outline"></ion-back-button>
+    </ion-buttons>
+    <ion-title>
+      Mi Perfil
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+
+<ion-content *ngIf="data">
+
+<!-- Settings tab -->
+<ion-card mode="ios" class="welcome-card">
+  
+  <ion-list lines="none">
+    <ion-list-header>
+      <ion-label>Bienvenido(a) <br />
+        <b>{{ data.name }}</b></ion-label>
+    </ion-list-header>
+
+    <ion-item routerLink="/detail" routerDirection="forward">
+      <ion-icon slot="start" color="medium" name="document-text"></ion-icon>
+      <ion-label>Mis Documentos</ion-label>
+    </ion-item>
+
+    <ion-item routerLink="/details-vehicle" routerDirection="forward">
+      <ion-icon slot="start" color="medium" name="construct"></ion-icon>
+      <ion-label>Mi Vehiculo</ion-label>
+    </ion-item>
+
+    
+    <ion-item routerLink="/chat-page" routerDirection="forward">
+      <ion-icon slot="start" color="medium" name="chatbox"></ion-icon>
+      <ion-label>Chat</ion-label>
+    </ion-item>
+
+    <ion-item (click)="takeAction(1)">
+      <ion-icon slot="start" color="medium" name="build"></ion-icon>
+      <ion-label>Configuraciones</ion-label>
+    </ion-item>
+
+    <ion-item (click)="logout()">
+      <ion-icon slot="start" color="medium" name="log-out"></ion-icon>
+      <ion-label>Cerrar sesión</ion-label>
+    </ion-item>
+  </ion-list>
+</ion-card>
+<!-- Settings tab -->
+
+<!--Personal Information-->
+
+<ion-card mode="ios" *ngIf="action == 1">
+  <form #form="ngForm" (ngSubmit)="update(form.value)">
+    <ion-card-header>
+      <ion-card-subtitle>Actualiza la información de tu cuenta</ion-card-subtitle>
+    </ion-card-header>
+  
+    <ion-item>
+      <ion-label position="floating">Cambiar Contraseña</ion-label>
+      <ion-input type="password" name="password" ngModel></ion-input>
+    </ion-item>
+
+    <ion-button expand="block" mode="ios" type="submit" [disabled]="!form" style="width: 90%;margin-left: 5%;margin-top:25px;">Actualizar</ion-button>
+</form>
+
+</ion-card>
+
+</ion-content>

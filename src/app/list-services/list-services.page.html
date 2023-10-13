@@ -1,0 +1,49 @@
+<ion-header no-border>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-icon class="back_btn" name="chevron-back" (click)="nav.navigateRoot('home')"></ion-icon>
+      <ion-title>
+        Mis servicios
+      </ion-title>
+    </ion-buttons>
+   
+    <ion-buttons slot="end">
+      <ion-button size="small" routerLink="/add-services" routerDirection="forward">Publicar &nbsp;
+        <ion-icon name="rocket"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <!-- Elementos -->
+  <ion-list lines="none" class="list_wrap_services" *ngIf="data && data.length > 0">
+      <ion-list-header>Listado de servicios</ion-list-header>
+        
+      <ion-item lines="none" style="margin-top:0 !important;" *ngFor="let item of data" (click)="presentActionSheet(item)">
+        <ion-avatar slot="start">
+          <img src="{{ item.portada }}" />
+        </ion-avatar>
+        <ion-label>
+          <h2>{{ item.precio | currency }} MXN</h2>
+          <small>{{ item.ubicacion }} - {{item.destino}} </small>
+          <p>Salida: {{ item.fecha | date:'yy-MM-dd'}}, {{ item.hora | date:'HH:mm' }}</p>
+        </ion-label> 
+
+        <ion-badge *ngIf="item.status == 1" color="danger">Cerrado</ion-badge>
+      </ion-item> 
+  </ion-list>
+  <!-- Elementos -->
+ 
+  <!-- Sin elementos -->
+  <ion-list lines="none" class="list_wrap_services" *ngIf="data && data.length == 0">
+    <ion-list-header> 
+      <ion-item>
+        <ion-label>
+          <h2>No se han encontrado servicios</h2>
+        </ion-label>
+      </ion-item>
+    </ion-list-header>
+  </ion-list>
+  <!-- Sin elementos -->
+</ion-content>

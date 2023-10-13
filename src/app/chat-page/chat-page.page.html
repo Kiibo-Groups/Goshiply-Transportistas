@@ -1,0 +1,135 @@
+<ion-header mode="md">
+  <ion-toolbar>
+    <div class="chat-title" *ngIf="user">
+      <h1>Mensajes <span *ngIf="news_msgs > 0">({{news_msgs}})</span></h1>
+      <h2>{{user.name}}</h2>
+      <figure class="avatar">
+        <img src="assets/account_icon.png" />
+      </figure>
+  
+      <section> 
+        <!-- <ion-icon name="chevron-back-outline" class="arrow-back" (click)="backButton()"></ion-icon> -->
+        <ion-menu-button mode="ios" color="light"></ion-menu-button>
+      </section>
+    </div> 
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  
+  <ion-tabs>
+    <ion-tab-bar slot="top">
+
+      <div class="sec_div">
+        <ion-tab-button (click)="tabChange('InProgress')"  [class.active_tab]="tabId == 'InProgress'">  
+          <ion-label [class.active]="tabId == 'InProgress'">En curso <span *ngIf="chats_norms > 0">({{ chats_norms }})</span></ion-label>  
+        </ion-tab-button>  
+          
+        <ion-tab-button (click)="tabChange('Accepted')"  [class.active_tab]="tabId == 'Accepted'">  
+          <ion-label [class.active]="tabId == 'Accepted'">Cerrados <span *ngIf="chats_accept > 0">({{ chats_accept }})</span> </ion-label>  
+        </ion-tab-button>   
+      </div>
+    </ion-tab-bar>  
+  </ion-tabs> 
+
+  <div class="chat animate__animated animate__fadeInLeft" *ngIf="tabId == 'InProgress'">
+    <!-- Listado de conversaciones -->
+    <ion-list class="messages" *ngIf="data && data.length > 0">
+      <ng-container *ngFor="let chats of data">
+        <ion-item class="chat-box" lines="none" *ngIf="chats.status_service == 'InProgress'" routerLink="/chat-service/{{chats.service.id}}/{{chats.user.id}}" routerDirection="forward">
+          <ion-avatar slot="start">
+            <img src="{{ chats.service.portada }}">
+          </ion-avatar>
+          
+          <ion-label>
+            <h5 style="text-transform:capitalize;">{{ chats.service.origen }} - {{ chats.service.destino }} </h5>
+            <span class="timestamp">{{chats.date}}</span>
+            <!-- 0 => solo texto, 1 => imagen, 2 => video, 3 => audio, 4 => documentos, 5 => Camera -->
+            <p *ngIf="chats.type_chat == 0">{{chats.msg | slice:0:40}}...</p>
+            <p *ngIf="chats.type_chat == 1">Archivo Imagen</p>
+            <p *ngIf="chats.type_chat == 2">Archivo de video</p>
+            <p *ngIf="chats.type_chat == 3">Archivo de audio</p>
+            <p *ngIf="chats.type_chat == 6">Pedido en curso...</p>
+
+            <ion-badge *ngIf="chats.viewers > 0">{{chats.viewers}}</ion-badge>
+          </ion-label>
+        </ion-item>  
+      </ng-container>
+    </ion-list>
+    <!-- Listado de conversaciones -->
+    
+    <!-- Sin conversaciones -->
+    <ion-list class="messages" *ngIf="data && data.length == 0">
+      <ion-list-header style="color:#fff;">
+        Sin Conversaciones
+      </ion-list-header> 
+    </ion-list>
+    <!-- Sin conversaciones -->
+
+  </div>
+
+  <div class="chat animate__animated animate__fadeInRight" *ngIf="tabId == 'Accepted'">
+    <!-- Listado de conversaciones -->
+    <ion-list class="messages" *ngIf="data && data.length > 0">
+      <ng-container *ngFor="let chats of data">
+        <ion-item class="chat-box" lines="none" *ngIf="chats.status_service == 'Accepted'" routerLink="/chat-service/{{chats.service.id}}/{{chats.user.id}}" routerDirection="forward">
+          <ion-avatar slot="start">
+            <img src="{{ chats.service.portada }}">
+          </ion-avatar>
+          
+          <ion-label>
+            <h5 style="text-transform:capitalize;">{{ chats.service.origen }} - {{ chats.service.destino }} </h5>
+            <span class="timestamp">{{chats.date}}</span>
+            <!-- 0 => solo texto, 1 => imagen, 2 => video, 3 => audio, 4 => documentos, 5 => Camera -->
+            <p *ngIf="chats.type_chat == 0">{{chats.msg | slice:0:40}}...</p>
+            <p *ngIf="chats.type_chat == 1">Archivo Imagen</p>
+            <p *ngIf="chats.type_chat == 2">Archivo de video</p>
+            <p *ngIf="chats.type_chat == 3">Archivo de audio</p>
+            <p *ngIf="chats.type_chat == 6">Pedido en curso...</p>
+
+            <ion-badge *ngIf="chats.viewers > 0">{{chats.viewers}}</ion-badge>
+          </ion-label>
+        </ion-item>  
+      </ng-container>
+    </ion-list>
+    <!-- Listado de conversaciones -->
+    
+    <!-- Sin conversaciones -->
+    <ion-list class="messages" *ngIf="data && data.length == 0">
+      <ion-list-header style="color:#fff;">
+        Sin Conversaciones
+      </ion-list-header> 
+    </ion-list>
+    <!-- Sin conversaciones -->
+
+  </div>
+  
+  <div class="bg"></div> 
+
+</ion-content>
+  <!--
+<ion-footer>
+ Menu Footer  
+  <div class="menu_foot animate__animated animate__bounceInUp">
+    <ion-tabs>
+      <ion-tab-bar slot="bottom">
+        
+        <ion-tab-button routerLink="/home" routerDirection="forward">
+          <ion-icon src="assets/icon_home.svg"></ion-icon>
+          <ion-label>Inicio</ion-label>
+        </ion-tab-button> 
+
+        <ion-tab-button routerLink="/list-services" routerDirection="forward">
+          <ion-icon src="assets/service_icon.svg"></ion-icon> 
+          <ion-label>Servicios</ion-label>
+        </ion-tab-button>
+
+        <ion-tab-button routerLink="/profile" routerDirection="forward">
+          <ion-icon src="assets/icon_profile.svg"></ion-icon>
+          <ion-label>Perfil</ion-label>
+        </ion-tab-button>
+      </ion-tab-bar>
+    </ion-tabs>
+  </div>
+   Menu Footer 
+</ion-footer>-->

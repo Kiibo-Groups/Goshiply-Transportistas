@@ -1,0 +1,88 @@
+<ion-header no-border>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-icon class="back_btn" name="chevron-back" (click)="back()"></ion-icon>
+      <ion-title>
+        Agregar Servicio
+      </ion-title>
+    </ion-buttons>
+   
+    <ion-buttons slot="end">
+      <ion-button size="small" (click)="addService()">Subir &nbsp;
+        <ion-icon name="send"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <!-- Elementos -->
+  <ion-list lines="none" class="list_wrap_services"> 
+
+       <!-- Foto de portada -->
+      <ion-item lines="none" (click)="openFileInput()" *ngIf="!update">
+        <ion-label >
+          Sube una imagen descriptiva <br />
+          <small *ngIf="portada">
+          Información enviada
+          </small>
+          <small *ngIf="!portada">
+            Falta información por enviar
+          </small>
+        </ion-label>
+        <ion-icon slot="end" name="cloud-upload" class="check"></ion-icon>
+      </ion-item>
+      <!-- Foto de portada -->
+
+      
+      <ion-item linea="none">
+        <ion-label position="stacked">Ubicación actual</ion-label>
+        <ion-input type="text" placeholder="Ingresa la ubicación del servicio" clearInput="true" [(ngModel)]="ubicacion"></ion-input> 
+      </ion-item>
+
+      <ion-item linea="none">
+        <ion-label position="stacked">Destino</ion-label>
+        <ion-input type="text" placeholder="Ingresa el destino" clearInput="true" [(ngModel)]="destino"></ion-input> 
+      </ion-item>
+
+      <ion-item linea="none">
+        <ion-label position="stacked">Fecha</ion-label>
+        <ion-datetime
+        [(ngModel)]="fecha"
+        displayFormat="YYYY-MM-DD" 
+        placeholder="Fecha de salida (Y-M-D)"
+        displayFormat="YYYY-MM-DD">
+      </ion-datetime> 
+      </ion-item>
+
+      <ion-item linea="none">
+        <ion-label position="stacked">Hora disponible</ion-label>
+        <ion-datetime
+          [(ngModel)]="hora"
+          displayFormat="HH:mm" 
+          placeholder="Hora disponible"
+          displayFormat="HH:mm">
+        </ion-datetime> 
+      </ion-item>
+
+      <ion-item linea="none">
+        <ion-label position="stacked">Tipo de flete</ion-label>
+        <ion-select style="max-width: 100%;" placeholder="Selecciona el tipo de flete" [(ngModel)]="tipo_flete" [value]="tipo_flete" interface="action-sheet"> 
+          <ion-select-option value="Normal">Normal</ion-select-option>
+          <ion-select-option value="Regreso">Regreso</ion-select-option>
+        </ion-select> 
+      </ion-item>
+      
+      <ion-item linea="none">
+        <ion-label position="stacked">Precio normal</ion-label>
+        <ion-input type="number" placeholder="Ingresa el precio normal" clearInput="true" [(ngModel)]="precio_normal"></ion-input> 
+      </ion-item>
+
+      <ion-item linea="none">
+        <ion-label position="stacked">Precio</ion-label>
+        <ion-input type="number" placeholder="Ingresa el precio" clearInput="true" [(ngModel)]="precio"></ion-input> 
+      </ion-item>
+  </ion-list>
+  <!-- Elementos --> 
+</ion-content>

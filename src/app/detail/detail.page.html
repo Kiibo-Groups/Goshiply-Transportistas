@@ -1,0 +1,136 @@
+<ion-header no-border>
+  <ion-toolbar>
+    <ion-buttons slot="start" >
+        <ion-menu-button mode="ios">
+            <img src="/assets/menu.svg" alt="">
+        </ion-menu-button>
+    </ion-buttons>
+  
+    <ion-title >
+      Mis Documentos
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  
+  <ion-list class="list_warp" *ngIf="user">
+    <!-- RFC -->
+    <ion-item lines="none">
+      <ion-label >
+        RFC<br />
+        <small *ngIf="user.rfc" style="text-transform:uppercase;">{{ user.rfc }}</small>
+        <small *ngIf="!user.rfc">Ingresa tu información</small>
+      </ion-label> 
+      <ion-icon *ngIf="user.rfc != null" slot="end" name="checkmark-done-outline" class="check" (click)="rfcView = true"></ion-icon>
+      <ion-icon *ngIf="user.rfc == null" slot="end" name="alert-circle-outline" class="falt" (click)="rfcView = true"></ion-icon>
+    </ion-item>
+
+    <ion-item linea="none" *ngIf="rfcView">
+      <ion-input type="text" placeholder="Ingresa tu RFC" clearInput="true" [(ngModel)]="user.rfc" style="text-transform:uppercase;"></ion-input>
+      <ion-icon slot="end" name="send-outline" class="check" (click)="saveInfo() ; rfcView = false"></ion-icon>
+    </ion-item>
+    <!-- RFC -->
+
+    <!-- INE -->
+    <ion-item lines="none">
+      <ion-label >
+        Número de identificación INE <br />
+        <small *ngIf="user.ine">
+          Información enviada
+        </small>
+        <small *ngIf="!user.ine">Sube tu información oficial</small>
+      </ion-label>
+      <ion-icon *ngIf="user.ine" slot="end" name="checkmark-done-outline" class="check" (click)="openFileInput()"></ion-icon>
+      <ion-icon *ngIf="!user.ine" slot="end" name="alert-circle-outline" class="falt" (click)="openFileInput()"></ion-icon>
+    </ion-item>
+    <!-- INE -->
+    
+    <!-- CFDI -->
+    <ion-item lines="none" *ngIf="cfdis">
+      <ion-label >
+        Tipo de CFDI <br />
+        <small *ngIf="user.cfdi_type">{{ user.cfdi_type }}</small>
+        <small *ngIf="!user.cfdi_type">Despliega la lista</small>
+      </ion-label>
+      <ion-icon *ngIf="user.cfdi_type" slot="end" name="checkmark-done-outline" class="check" (click)="cfdiView = true"></ion-icon>
+      <ion-icon *ngIf="!user.cfdi_type" slot="end" name="alert-circle-outline" class="falt" (click)="cfdiView = true"></ion-icon>
+    </ion-item>
+
+    <ion-item linea="none" *ngIf="cfdiView && cfdis.length > 0">
+      <ion-select style="max-width: 100%;" placeholder="Selecciona una tipo de CFDI" (ionChange)="saveInfo() ; cfdiView = false" [(ngModel)]="user.cfdi_type" [value]="user.cfdi_type" interface="action-sheet"> 
+        <ion-select-option *ngFor="let cfdi of cfdis" value="{{ cfdi.nombre }}">{{ cfdi.nombre }}</ion-select-option>
+      </ion-select> 
+    </ion-item>
+    <!-- CFDI -->
+
+    <!-- Regimen Fiscal -->
+    <ion-item lines="none">
+      <ion-label >
+        Régimen fiscal <br />
+        <small *ngIf="user.regimen_f">{{ user.regimen_f | slice:0:31 }} <i *ngIf="user.regimen_f.length > 31">...</i> </small>
+        <small *ngIf="!user.regimen_f">Ingresa tu información</small>
+      </ion-label> 
+      <ion-icon *ngIf="user.regimen_f" slot="end" name="checkmark-done-outline" class="check" (click)="regimeniView = true"></ion-icon>
+      <ion-icon *ngIf="!user.regimen_f" slot="end" name="alert-circle-outline" class="falt" (click)="regimeniView = true"></ion-icon>
+    </ion-item>
+
+    <ion-item linea="none" *ngIf="regimeniView && regimenes.length > 0">
+      <ion-select style="max-width: 100%;" placeholder="Selecciona un tipo de régimen" (ionChange)="saveInfo() ; regimeniView = false" [(ngModel)]="user.regimen_f" [value]="user.regimen_f" interface="action-sheet"> 
+        <ion-select-option *ngFor="let regs of regimenes" value="{{ regs.nombre }}">{{ regs.nombre }}</ion-select-option>
+      </ion-select> 
+    </ion-item>
+    <!-- Regimen Fiscal -->
+
+    <!-- Empresa -->
+    <ion-item lines="none">
+      <ion-label >
+        Nombre de la empresa<br />
+        <small *ngIf="user.empresa">{{ user.empresa }}</small>
+        <small *ngIf="!user.empresa">Ingresa tu información</small>
+      </ion-label> 
+      <ion-icon *ngIf="user.empresa" slot="end" name="checkmark-done-outline" class="check"></ion-icon>
+      <ion-icon *ngIf="!user.empresa" slot="end" name="alert-circle-outline" class="falt" (click)="empresa = true"></ion-icon>
+    </ion-item>
+
+    <ion-item linea="none" *ngIf="empresa">
+      <ion-input type="text" placeholder="Ingresa nombre de la empresa" clearInput="true" [(ngModel)]="user.empresa" style="text-transform:uppercase;"></ion-input>
+      <ion-icon slot="end" name="send-outline" class="check" (click)="saveInfo() ; empresa = false"></ion-icon>
+    </ion-item>
+    <!-- Empresa -->
+
+  </ion-list>
+
+</ion-content>
+ 
+<ion-footer>
+  <!-- Menu Footer -->
+  <div class="menu_foot animate__animated animate__bounceInUp">
+    <ion-tabs>
+      <ion-tab-bar slot="bottom">
+        
+        <ion-tab-button routerLink="/home" routerDirection="forward">
+          <ion-icon src="assets/icon_home.svg"></ion-icon>
+          <ion-label>Inicio</ion-label>
+        </ion-tab-button> 
+
+        <ion-tab-button routerLink="/chats" routerDirection="forward">
+          <ion-icon src="assets/icon_chat.svg"></ion-icon> 
+          <ion-label>Chats</ion-label>
+        </ion-tab-button>
+        
+        <ion-tab-button routerLink="/list-services" routerDirection="forward">
+          <ion-icon src="assets/service_icon.svg"></ion-icon> 
+          <ion-label>Servicios</ion-label>
+        </ion-tab-button>
+
+        
+        <ion-tab-button routerLink="/profile" routerDirection="forward">
+          <ion-icon src="assets/icon_profile.svg"></ion-icon>
+          <ion-label>Perfil</ion-label>
+        </ion-tab-button>
+      </ion-tab-bar>
+    </ion-tabs>
+  </div>
+  <!-- Menu Footer -->
+</ion-footer>

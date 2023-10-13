@@ -1,0 +1,101 @@
+<ion-content>
+
+  <!-- Header -->
+  <div class="header_wrap">
+    <ion-toolbar>
+      <ion-title>
+        <ion-icon class="back_btn" name="chevron-back" (click)="nav.navigateRoot('home')"></ion-icon>
+        <span>Mi Balance</span>
+      </ion-title>
+  
+      <ion-buttons slot="end">
+        <ion-menu-button mode="ios" color="light"></ion-menu-button>
+      </ion-buttons>
+
+      <div class="balance_wrap_text" *ngIf="data">
+        <h3>{{ data.amount_deb | currency }}</h3>
+        <label>{{ data.date_complete }}</label>
+      </div>
+    </ion-toolbar>
+
+    <div class="wrap_description" *ngIf="data">
+      <ion-grid>
+        <ion-row>
+          <ion-col size="6">
+            <label style="color:green;">Total en servicios</label>
+            <h3>{{ data.sum_services | currency }}</h3>
+          </ion-col>
+
+          
+          <ion-col size="6">
+            <label style="color:red;">Comisiones</label>
+            <h3>{{ data.sum_wallet | currency }}</h3>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </div>
+  </div>
+  <!-- Header -->
+
+  <!-- Listado de transacciones -->
+  <div class="content_wrap">
+    <ion-list lines="none" class="list_wrap_quick_links">
+
+      <ion-list-header>Listado de transacciones</ion-list-header>
+
+      <ng-container *ngIf="data">
+        <ion-item lines="none" *ngFor="let wll of data.data">
+            <div class="date" slot="start">
+              <h3>{{wll.day}}</h3>
+              <label>{{ wll.month }}</label>
+            </div>
+  
+            <div class="name_serv"> 
+              <h5>Servicio #{{ wll.service_id }}</h5>
+              <span>{{wll.ubicacion}} - {{wll.destino | slice:0:6 }}...</span>
+            </div>
+            
+            <div class="price" slot="end">
+              <h2 class="down">${{wll.total}}</h2>
+            </div>
+        </ion-item> 
+      </ng-container>
+    </ion-list>
+
+  </div>
+  <!-- Listado de transacciones -->
+
+</ion-content>
+
+
+<ion-footer>
+  <!-- Menu Footer -->
+  <div class="menu_foot animate__animated animate__bounceInUp">
+    <ion-tabs>
+      <ion-tab-bar slot="bottom">
+        
+        <ion-tab-button routerLink="/home" routerDirection="forward">
+          <ion-icon src="assets/icon_home.svg"></ion-icon>
+          <ion-label>Inicio</ion-label>
+        </ion-tab-button> 
+
+        <ion-tab-button routerLink="/chats" routerDirection="forward">
+          <ion-icon src="assets/icon_chat.svg"></ion-icon> 
+          <ion-label>Chats</ion-label>
+        </ion-tab-button>
+
+        <ion-tab-button routerLink="/list-services" routerDirection="forward">
+          <ion-icon src="assets/service_icon.svg"></ion-icon> 
+          <ion-label>Servicios</ion-label>
+        </ion-tab-button>
+
+
+        <ion-tab-button routerLink="/profile" routerDirection="forward">
+          <ion-icon src="assets/icon_profile.svg"></ion-icon>
+          <ion-label>Perfil</ion-label>
+        </ion-tab-button>
+      </ion-tab-bar>
+    </ion-tabs>
+  </div>
+  <!-- Menu Footer -->
+</ion-footer>

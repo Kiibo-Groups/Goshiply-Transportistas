@@ -1,0 +1,39 @@
+.abs_div {
+    text-align: center;
+
+    img {
+        width: 70%;
+        margin: auto;
+    }
+}
+
+.code_ref {
+    position: relative;
+    margin:25px 15px;
+    padding: 0px 10px;
+    border-radius: 50px;
+    border: 1px solid #D1D1D1; 
+    
+    label {
+        display: none;
+        position: absolute;
+        font-size: 14px;
+        left: 10px;
+        top: -15px;
+        background-color: #fff;
+        padding: 6px 10px;
+    }
+}
+
+.btn_next {
+    position: relative;
+    text-align: center;
+    
+    ion-button {
+        border-radius: 25px !important;
+        width: 250px;
+        height: 40px;
+        margin: auto;
+        position: relative;
+    }
+}

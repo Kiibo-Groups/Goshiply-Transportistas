@@ -1,0 +1,55 @@
+<ion-app dir="{{ dir }}">
+  <ion-split-pane>
+    <!-- swipe-gesture="true" type="push" -->
+    <ion-menu swipe-gesture="true" type="push" side="start">
+      
+      <ion-header no-border>
+        <div class="banner" routerLink="/profile" routerDirection="forward">
+          <div class="info">
+            
+            <div class="text_box">
+              <p>Bienvenido(a)</p>
+              <h2 *ngIf="user">{{ user.name }}</h2>
+            </div>
+
+            <div class="img_box">
+              <img src="assets/icon.png" class="crop_img">
+            </div>
+            
+          </div>
+        </div>
+      </ion-header>
+
+      <ion-content>
+        <ion-list lines="none" *ngIf="appPages">
+          <!-- Header -->
+          <ion-list-header>
+            Menú principal
+          </ion-list-header>
+
+          <!-- Menu -->
+          <ion-menu-toggle auto-hide="false" *ngFor="let p of appPages">
+            <ion-item [routerDirection]="'forward'" [routerLink]="[p.url]">
+              <ion-icon slot="start" [name]="p.icon"></ion-icon>
+              <ion-label>
+                {{p.title}}
+              </ion-label>
+            </ion-item>
+          </ion-menu-toggle>
+          
+          <!-- LogOut -->
+          <ion-item (click)="logout()">
+            <ion-icon slot="start" color="medium" name="log-out"></ion-icon>
+            <ion-label>Cerrar sesión</ion-label>
+          </ion-item>
+        </ion-list>
+      </ion-content>
+
+      <ion-footer>
+        <ion-item><small style="font-size: 9px;">Goshiply</small></ion-item>
+      </ion-footer>
+    </ion-menu>
+
+    <ion-router-outlet main dir="{{ dir }}"></ion-router-outlet>
+  </ion-split-pane>
+</ion-app>

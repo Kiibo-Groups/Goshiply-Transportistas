@@ -1,0 +1,40 @@
+<ion-header no-border transparent>
+  <ion-toolbar>
+      <ion-buttons slot="start">
+          <ion-back-button text="" icon="chevron-back-outline"></ion-back-button>
+      </ion-buttons>
+      <ion-title>
+        Volver
+      </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding" fullscreen>
+  <div class="icon_log">
+    <div class="abs_div">
+        <img src="assets/icon_wel.png" alt="">
+    </div>
+
+    <form #form="ngForm" (ngSubmit)="login(form.value)" style="margin-top:25px;">
+      <div class="code_ref animate__animated animate__fadeInUp">
+        <label>Correo electrónico</label>
+        <ion-input name="email" [(ngModel)]="email" placeholder="Correo electrónico" required></ion-input>
+      </div>
+
+      <div class="code_ref animate__animated animate__fadeInUp">
+        <label>Contraseña</label>
+        <ion-input type="password" name="password" [(ngModel)]="password" placeholder="Contraseña"></ion-input>
+      </div>
+ 
+      <section class="btn_next">
+        <ion-button [disabled]="!form.valid" type="submit" color="dark" shape="round">
+          Iniciar sesión
+          <ion-icon slot="end" name="chevron-forward-outline"></ion-icon>
+        </ion-button>
+      </section>
+    </form>
+
+  </div> 
+
+</ion-content>
+ 

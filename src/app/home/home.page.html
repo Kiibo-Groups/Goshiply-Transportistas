@@ -1,0 +1,166 @@
+<ion-header no-border transparent>
+    <ion-toolbar>
+        <ion-buttons slot="start" >
+            <ion-menu-button mode="ios">
+                <img src="/assets/menu.svg" alt="">
+            </ion-menu-button>
+        </ion-buttons>
+
+        <ion-title mode="md" *ngIf="user">
+            Bienvenido(a)<br />
+            <small>{{ user.name }}</small>
+        </ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>     
+    <ng-container *ngIf="user && user.status_survey == 1">
+        <!-- Perfil -->
+        <ion-list lines="none" class="list_wrap_user">
+            <ion-item *ngIf="user">
+                <ion-avatar slot="start">
+                  <img src="assets/account_icon.png" />
+                </ion-avatar>
+                <ion-label>
+                  <h2>{{ user.name }}</h2>
+                  <small>{{ user.email | slice:0:27 }} <i *ngIf="user.email.length > 27">...</i> </small>
+                  <h3>
+                    <ion-icon name="call-outline"></ion-icon>
+                    &nbsp;
+                    {{user.phone}}
+                  </h3>
+                </ion-label>
+                <ion-icon slot="end" name="create-outline" routerLink="/profile" routerDirection="forward"></ion-icon>
+              </ion-item>
+        </ion-list>
+        <!-- Perfil -->
+
+        <!-- Notificaciones -->
+        <ion-list lines="none" class="list_wrap_user" *ngIf="news_msgs && news_msgs > 0">
+            <ion-list-header>Notificaciones de mensajes</ion-list-header>
+
+            <ion-item lines="none" *ngIf="user" class="animate__animated animate__backInUp" style="margin-top:0px !important" routerLink="/chats" routerDirection="forward">
+                <ion-avatar slot="start">
+                  <img src="assets/attach_pic.png" />
+                </ion-avatar>
+                <ion-label>
+                  <h2>Nuevos mensajes</h2>
+                  <small>
+                    <i *ngIf="news_msgs == 1">({{news_msgs}}) Mensaje no leido</i>
+                    <i *ngIf="news_msgs > 1">({{news_msgs}}) Mensajes no leidos</i>
+                    </small>
+                  
+                </ion-label>
+            </ion-item>
+        </ion-list>
+        <!-- Notificaciones -->
+
+        <!-- Notificaciones  Nuevo Request servicio -->
+        <ion-list lines="none" class="list_wrap_user" *ngIf="news_service && news_service > 0">
+            <ion-list-header>Notificaciones de Solicitudes</ion-list-header>
+
+            <ion-item lines="none" *ngIf="user" class="animate__animated animate__backInUp" style="margin-top:0px !important" routerLink="/request-services" routerDirection="forward">
+                <ion-avatar slot="start">
+                  <img src="assets/attach_pic.png" />
+                </ion-avatar>
+                <ion-label>
+                  <h2>Nuevas Solicitudes</h2>
+                  <small>
+                    <i *ngIf="news_service == 1">({{news_service}}) Solicitud no leida</i>
+                    <i *ngIf="news_service > 1">({{news_service}}) Solicitudes no leidas</i>
+                    </small>
+                  
+                </ion-label>
+            </ion-item>
+        </ion-list>
+        <!-- Notificaciones  Nuevo Request servicio -->
+
+        <!-- Quick Links -->
+        <ion-list lines="none" class="list_wrap_quick_links">
+            <ion-list-header>Accesos directos</ion-list-header>
+
+            <ion-item lines="none" *ngIf="user" style="margin-top:0px !important" routerLink="/list-services" routerDirection="forward">
+                <ion-avatar slot="start">
+                   <img src="assets/services.avif" alt="">
+                </ion-avatar>
+                <ion-label>
+                  <h2>Mis servicios</h2>
+                </ion-label>
+                <ion-icon slot="end" name="chevron-forward-outline"></ion-icon>
+            </ion-item>
+
+            <ion-item lines="none" *ngIf="user" style="margin-top:0px !important" routerLink="/request-services" routerDirection="forward">
+              <ion-avatar slot="start">
+                 <img src="assets/list_service.png" alt="">
+              </ion-avatar>
+              <ion-label>
+                <h2>Solicitudes <i *ngIf="news_service && news_service > 0">({{news_service}})</i> </h2>
+              </ion-label>
+              <ion-icon slot="end" name="chevron-forward-outline"></ion-icon>
+          </ion-item>
+
+            <ion-item lines="none" *ngIf="user" style="margin-top:0px !important" routerLink="/wallet" routerDirection="forward">
+                <ion-avatar slot="start">
+                   <img src="assets/wallet.png" alt="">
+                </ion-avatar>
+                <ion-label>
+                  <h2>Mi Wallet</h2>
+                </ion-label>
+                <ion-icon slot="end" name="chevron-forward-outline"></ion-icon>
+            </ion-item>
+
+            <ion-item lines="none" *ngIf="user" style="margin-top:0px !important" routerLink="/detail" routerDirection="forward">
+                <ion-avatar slot="start">
+                   <img src="assets/attach_pic.png" alt="">
+                </ion-avatar>
+                <ion-label>
+                  <h2>Mis Documentos</h2>
+                </ion-label>
+                <ion-icon slot="end" name="chevron-forward-outline"></ion-icon>
+            </ion-item>
+
+            <ion-item lines="none" *ngIf="user" style="margin-top:0px !important" routerLink="/details-vehicle" routerDirection="forward">
+                <ion-avatar slot="start">
+                   <img src="assets/vehiculo.avif" alt="">
+                </ion-avatar>
+                <ion-label>
+                  <h2>Mi Vehiculo</h2>
+                </ion-label>
+                <ion-icon slot="end" name="chevron-forward-outline"></ion-icon>
+            </ion-item>
+        </ion-list>
+        <!-- Quick Links -->
+    </ng-container>
+</ion-content>
+
+<ion-footer>
+    <!-- Menu Footer -->
+    <div class="menu_foot animate__animated animate__bounceInUp">
+      <ion-tabs>
+        <ion-tab-bar slot="bottom">
+          
+          <ion-tab-button (click)="userInfo()">
+            <ion-icon src="assets/icon_home.svg"></ion-icon>
+            <ion-label>Inicio</ion-label>
+          </ion-tab-button> 
+  
+          <ion-tab-button routerLink="/chats" routerDirection="forward">
+            <ion-icon src="assets/icon_chat.svg"></ion-icon> 
+            <ion-label>Chats</ion-label>
+          </ion-tab-button>
+
+          <ion-tab-button routerLink="/list-services" routerDirection="forward">
+            <ion-icon src="assets/service_icon.svg"></ion-icon> 
+            <ion-label>Servicios</ion-label>
+          </ion-tab-button>
+  
+  
+          <ion-tab-button routerLink="/profile" routerDirection="forward">
+            <ion-icon src="assets/icon_profile.svg"></ion-icon>
+            <ion-label>Perfil</ion-label>
+          </ion-tab-button>
+        </ion-tab-bar>
+      </ion-tabs>
+    </div>
+    <!-- Menu Footer -->
+</ion-footer>

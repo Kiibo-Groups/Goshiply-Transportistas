@@ -1,0 +1,75 @@
+ 
+<ion-content>
+  <div class="main_content_div">
+    <ng-container *ngIf="!welcome">
+      <div class="slider_div">      
+          <ion-slides mode="ios" pager="ios" scrollbar="ios">
+              <ion-slide>
+                <ion-card lines="none">
+                  <img src="assets/onboarding-1.png" />
+                  <ion-card-header>
+                    <ion-card-title>Registra tu vehículo</ion-card-title> 
+                  </ion-card-header>
+                  <ion-card-content>
+                    en Goshiply. Podrás registrar todo tipo de vehículo y comenzar a ofrecer tus servicios
+                  </ion-card-content>
+                </ion-card>
+      
+              </ion-slide>
+
+              <ion-slide>
+                <ion-card lines="none">
+                  <img src="assets/onboarding-2.png" />
+                  <ion-card-header>
+                    <ion-card-title>Sube Tu Documentos</ion-card-title> 
+                  </ion-card-header>
+                  <ion-card-content>
+                    es importante subir todos los documento necesarios para poder operar dentro de la aplicacion
+                  </ion-card-content>
+                </ion-card> 
+              </ion-slide>
+
+              <ion-slide>
+                <ion-card lines="none">
+                  <img src="assets/onboarding-3.png" />
+                  <ion-card-header>
+                    <ion-card-title>Ofrece tus servicios</ion-card-title> 
+                  </ion-card-header>
+                  <ion-card-content>
+                    Ofrece tus servicios de flete al mejor precio y sin comisiones.
+                  </ion-card-content>
+                </ion-card> 
+              </ion-slide>
+          </ion-slides>
+      </div>
+    </ng-container>
+
+    <ng-container *ngIf="welcome">
+      <div class="abs_div">
+          <img src="assets/icon_wel.png" alt="">
+          <ion-label>Bienvenido(a) <br> Iniciemos...</ion-label>
+      </div>
+
+      <div class="init_div animate__animated animate__fadeInUp">
+        <ion-button (click)="goToLogin()">
+          Iniciar sesión
+        </ion-button>
+        <ion-button (click)="goToSingup()">
+          Registrarme
+        </ion-button>
+      </div>
+    </ng-container>
+    
+  </div>
+</ion-content>
+
+<ion-footer no-border transparent *ngIf="!welcome">
+  <section>
+
+    <ion-button expand="block" class="reg_btn" (click)="next()" *ngIf="index < 2">Siguiente</ion-button>
+
+    <ion-button expand="block" class="reg_btn" (click)="Ready()" *ngIf="index == 2">
+     Empecemos...
+    </ion-button>
+  </section>
+</ion-footer>

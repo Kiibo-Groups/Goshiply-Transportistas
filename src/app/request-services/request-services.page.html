@@ -1,0 +1,42 @@
+<ion-header no-border>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-icon class="back_btn" name="chevron-back" (click)="nav.navigateRoot('home')"></ion-icon>
+      <ion-title>
+        Mis Solicitudes <span *ngIf="news_service && news_service > 0" >({{news_service}})</span>
+      </ion-title>
+    </ion-buttons> 
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <!-- Elementos -->
+  <ion-list lines="none" class="list_wrap_services" *ngIf="data && data.length > 0">
+      <ion-list-header>Listado de solicitudes</ion-list-header>
+        
+      <ion-item lines="none" style="margin-top:0 !important;" *ngFor="let item of data" (click)="presentActionSheet(item)">
+        <ion-avatar slot="start">
+          <img src="{{ item.portada }}" />
+        </ion-avatar>
+        <ion-label>
+          <h2>{{ item.user.name}}</h2>
+          <small>{{ item.ubicacion }} - {{item.destino}} </small>
+          <p>Creada: {{ item.created }}</p>
+        </ion-label> 
+      </ion-item> 
+  </ion-list>
+  <!-- Elementos -->
+ 
+  <!-- Sin elementos -->
+  <ion-list lines="none" class="list_wrap_services" *ngIf="data && data.length == 0">
+    <ion-list-header> 
+      <ion-item>
+        <img src="assets/list_empty.png" alt="">
+        <ion-label>
+          <h2>No se han encontrado solicitudes</h2>
+        </ion-label>
+      </ion-item>
+    </ion-list-header>
+  </ion-list>
+  <!-- Sin elementos -->
+</ion-content>

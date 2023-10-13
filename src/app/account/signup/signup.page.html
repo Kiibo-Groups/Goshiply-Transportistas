@@ -1,0 +1,66 @@
+<ion-header no-border transparent>
+  <ion-toolbar>
+      <ion-buttons slot="start">
+          <ion-back-button text="" icon="chevron-back-outline"></ion-back-button>
+      </ion-buttons>
+      <ion-title>
+        Volver
+      </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <div class="abs_div">
+      <img src="assets/icon_wel.png" alt="">
+  </div>
+
+  <form #form="ngForm" (ngSubmit)="signup(form.value)"> 
+   
+    <div class="code_ref animate__animated animate__fadeInUp">
+      <label>Nombre Completo</label>
+      <ion-input name="name" ngModel placeholder="Nombre" required></ion-input>
+    </div>
+
+    <div class="code_ref animate__animated animate__fadeInUp">
+      <label>Telefono</label>
+      <ion-input type="tel" name="phone" pattern="[0-9]{3}[0-9]{3}[0-9]{4}" maxlength="10" ngModel placeholder="Teléfono"></ion-input>
+    </div>
+
+    <div class="code_ref animate__animated animate__fadeInUp">
+      <label>Correo electrónico</label>
+      <ion-input type="text" name="email" ngModel placeholder="Correo electrónico"></ion-input>
+    </div>
+
+    <div class="code_ref animate__animated animate__fadeInUp">
+      <label>Contraseña</label>
+      <ion-input type="password" name="password" ngModel placeholder="Contraseña"></ion-input>
+    </div>
+
+    <div class="code_ref animate__animated animate__fadeInUp">
+      <label>Puesto de trabajo</label>
+      <ion-select placeholder="Select" ngModel name="puesto" required interface="action-sheet">
+        <ion-select-option>
+          Selecciona el Puesto de trabajo
+        </ion-select-option>
+        <ion-select-option value="0">
+          Dueño
+        </ion-select-option>
+        <ion-select-option value="1">
+          Chofer
+        </ion-select-option>
+        <ion-select-option value="2">
+          Administrador
+        </ion-select-option>
+        <hr>
+      </ion-select>
+    </div>
+
+    <section class="btn_next">
+      <ion-button [disabled]="!form.valid" type="submit" color="dark" shape="round">
+        Registrarse
+        <ion-icon slot="end" name="chevron-forward-outline"></ion-icon>
+      </ion-button>
+    </section>
+  </form>
+</ion-content>

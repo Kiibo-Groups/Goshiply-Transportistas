@@ -1,0 +1,48 @@
+ion-menu {
+
+	ion-header {
+		box-shadow: none !important;
+
+		.banner {
+			padding-top: 15px;
+			height: 120px;
+
+			.info {
+				column-count: 2;
+
+				.img_box {
+					border-radius: 5px;
+					width: 100px;
+					position: relative; 
+					margin: 25px 10px;
+
+
+				   	img {
+						width: 100%;
+						margin: auto;
+					}
+				}
+
+				.text_box {
+					max-width: 95%;
+					margin-left: 15px;
+					position: relative;
+					z-index: 999;
+
+					h2 {
+						margin: 0;
+						font-size: .9rem;
+						font-weight: 600;
+						text-transform: uppercase;
+						color: #000;
+						padding-bottom: 5px;
+						letter-spacing: 1.5px;
+					}
+				}
+			}
+
+
+		}
+	}
+
+}

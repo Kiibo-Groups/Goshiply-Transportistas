@@ -1,0 +1,139 @@
+.abs_div {
+    text-align: center;
+
+    img {
+        width: 70%;
+        margin: auto;
+    }
+}
+
+.form {
+    border-top: 6px solid var(--bg-color);
+    padding-top: 34px;
+
+    ion-list {
+        ion-item {
+            &:last-of-type {
+                margin-bottom: 15px !important;
+            }
+        }
+    }
+
+    p {
+        margin: 0;
+        color: var(--text-light);
+        font-size: .7rem;
+        letter-spacing: .5px;
+        font-weight: 400;
+
+        span {
+            width: calc(100% - 35px);
+        }
+    }
+}
+
+.animate__animated.animate__fadeInUp {
+    &:nth-child(1) {
+        --animate-duration: .25s;
+    }
+
+    &:nth-child(2) {
+        --animate-duration: .3s;
+    }
+
+    &:nth-child(3) {
+        --animate-duration: .35s;
+    }
+
+    &:nth-child(4) {
+        --animate-duration: .4s;
+    }
+
+    &:nth-child(5) {
+        --animate-duration: .45s;
+    }
+
+    &:nth-child(6) {
+        --animate-duration: .5s;
+    }
+
+    &:nth-child(7) {
+        --animate-duration: .55s;
+    }
+
+    &:nth-child(8) {
+        --animate-duration: .6s;
+    }
+
+}
+
+.sign_rs {
+    margin-top: 50px;
+    text-align: center;
+    position: relative;
+
+    span {
+        position: relative;
+        display: block;
+        width: 80%;
+        font-size: 14px;
+        color: #808080;
+        margin: 15px auto;
+
+        border-top: 1px solid #e1e1e1;
+        padding: 15px;
+    }
+
+    div {
+        margin-top: 10px;
+
+        img {
+            position: relative;
+            margin: auto;
+            width: 40px;
+            height:40px;
+            border-radius: 50%;
+        }
+
+        p {
+            position: relative;
+            margin: 0 !important;
+            padding: 0 !important;
+            font-size: 14px;
+            color:#808080;
+        }
+    }
+    
+}
+
+.btn_next {
+    position: relative;
+    text-align: center;
+    
+    ion-button {
+        border-radius: 25px !important;
+        width: 250px;
+        height: 40px;
+        margin: auto;
+        position: relative;
+    }
+}
+
+
+.code_ref {
+    position: relative;
+    margin:25px 15px;
+    padding: 0px 10px;
+    border-radius: 50px;
+    border: 1px solid #D1D1D1; 
+    
+    label {
+        display: none;
+        position: absolute;
+        font-size: 14px;
+        left: 10px;
+        top: -15px;
+        background-color: #fff;
+        padding: 6px 10px;
+    }
+}

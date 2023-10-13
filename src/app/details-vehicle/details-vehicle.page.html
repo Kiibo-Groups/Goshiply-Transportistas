@@ -1,0 +1,359 @@
+<ion-header no-border>
+  <ion-toolbar>
+    <ion-buttons slot="start" >
+        <ion-menu-button mode="ios">
+            <img src="/assets/menu.svg" alt="">
+        </ion-menu-button>
+    </ion-buttons>
+  
+    <ion-title >
+      Mi Vehiculo
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  
+  <ion-list class="list_warp" *ngIf="user">
+    <!-- Marca -->
+    <ion-item lines="none">
+      <ion-label >
+        Marca del camión<br />
+        <small *ngIf="user.marca" style="text-transform:uppercase;">{{ user.marca }}</small>
+        <small *ngIf="!user.marca">
+          ingresar datos tal como se muestran en la tarjeta de circulación
+        </small>
+      </ion-label> 
+      <ion-icon *ngIf="user.marca != null" slot="end" name="checkmark-done-outline" class="check" (click)="truckView = true"></ion-icon>
+      <ion-icon *ngIf="user.marca == null" slot="end" name="alert-circle-outline" class="falt" (click)="truckView = true"></ion-icon>
+    </ion-item>
+
+    <ion-item linea="none" *ngIf="truckView && trucks.length > 0">
+      <ion-select style="max-width: 100%;" placeholder="Selecciona una marca de Camión" (ionChange)="saveInfo() ; truckView = false" [(ngModel)]="user.marca" [value]="user.marca" interface="action-sheet"> 
+        <ion-select-option *ngFor="let truck of trucks" value="{{ truck }}">{{ truck }}</ion-select-option>
+      </ion-select> 
+    </ion-item>
+    <!-- Marca -->
+
+    <!-- Descripcion -->
+    <ion-item lines="none">
+      <ion-label >
+        Descripción del vehiculo <br />
+        <small *ngIf="user.descript_vehiculo">
+         {{user.descript_vehiculo | slice:0:31}} <i *ngIf="user.descript_vehiculo.length > 31">...</i>
+        </small>
+        <small *ngIf="!user.descript_vehiculo">ingresar datos tal como se muestran en la tarjeta de circulación</small>
+      </ion-label>
+      <ion-icon *ngIf="user.descript_vehiculo != null" slot="end" name="checkmark-done-outline" class="check" (click)="descript_vehicView = true"></ion-icon>
+      <ion-icon *ngIf="user.descript_vehiculo == null" slot="end" name="alert-circle-outline" class="falt" (click)="descript_vehicView = true"></ion-icon>
+    </ion-item>
+    <ion-item linea="none" *ngIf="descript_vehicView">
+      <ion-textarea type="text" placeholder="Ingresa una descripción de tu vehiculo" clearInput="true" [(ngModel)]="user.descript_vehiculo"></ion-textarea>
+      <ion-icon slot="end" name="send-outline" class="check" (click)="saveInfo() ; descript_vehicView = false"></ion-icon>
+    </ion-item>
+    <!-- Descripcion -->
+    
+    <!-- Año -->
+    <ion-item lines="none">
+      <ion-label >
+        Año del vehiculo <br />
+        <small *ngIf="user.year">
+         {{user.year}}
+        </small>
+        <small *ngIf="!user.year">
+          ingresar datos tal como se muestran en la tarjeta de circulación
+        </small>
+      </ion-label>
+      <ion-icon *ngIf="user.year != null" slot="end" name="checkmark-done-outline" class="check" (click)="anioView = true"></ion-icon>
+      <ion-icon *ngIf="user.year == null" slot="end" name="alert-circle-outline" class="falt" (click)="anioView = true"></ion-icon>
+    </ion-item>
+    <ion-item linea="none" *ngIf="anioView">
+      <ion-datetime
+        [(ngModel)]="user.year"
+        displayFormat="YYYY"
+        [pickerOptions]="customPickerOptions"
+        placeholder="Selecciona el año de tu vehiculo"
+        displayFormat="YYYY"
+        min="1980"
+        max="2023"
+        (ionChange)="saveInfo() ; anioView = false">
+      </ion-datetime> 
+    </ion-item>
+    <!-- Año -->
+
+    <!-- Color -->
+    <ion-item lines="none">
+      <ion-label >
+        Color del vehiculo <br />
+        <small *ngIf="user.color">
+         {{user.color | slice:0:31}} <i *ngIf="user.color.length > 31">...</i>
+        </small>
+        <small *ngIf="!user.color">
+          ingresar datos tal como se muestran en la tarjeta de circulación
+        </small>
+      </ion-label>
+      <ion-icon *ngIf="user.color != null" slot="end" name="checkmark-done-outline" class="check" (click)="colorView = true"></ion-icon>
+      <ion-icon *ngIf="user.color == null" slot="end" name="alert-circle-outline" class="falt" (click)="colorView = true"></ion-icon>
+    </ion-item>
+    <ion-item linea="none" *ngIf="colorView">
+      <ion-input type="text" placeholder="Ingresa una descripción del color de tu vehiculo" clearInput="true" [(ngModel)]="user.color"></ion-input>
+      <ion-icon slot="end" name="send-outline" class="check" (click)="saveInfo() ; colorView = false"></ion-icon>
+    </ion-item>
+    <!-- Color -->
+
+    <!-- Numero de motor -->
+    <ion-item lines="none">
+      <ion-label >
+        Número de motor del vehiculo <br />
+        <small *ngIf="user.motor_number">
+         {{user.motor_number | slice:0:31}} <i *ngIf="user.motor_number.length > 31">...</i>
+        </small>
+        <small *ngIf="!user.motor_number">
+          ingresar datos tal como se muestran en la tarjeta de circulación
+        </small>
+      </ion-label>
+      <ion-icon *ngIf="user.motor_number != null" slot="end" name="checkmark-done-outline" class="check" (click)="numberMView = true"></ion-icon>
+      <ion-icon *ngIf="user.motor_number == null" slot="end" name="alert-circle-outline" class="falt" (click)="numberMView = true"></ion-icon>
+    </ion-item>
+    <ion-item linea="none" *ngIf="numberMView">
+      <ion-input type="text" placeholder="Ingresa una descripción del # de motoro de tu vehiculo" clearInput="true" [(ngModel)]="user.motor_number"></ion-input>
+      <ion-icon slot="end" name="send-outline" class="check" (click)="saveInfo() ; numberMView = false"></ion-icon>
+    </ion-item>
+    <!-- Numero de motor -->
+
+    <!-- Tipo de camion -->
+    <ion-item lines="none">
+      <ion-label >
+        Tipo de camión <br />
+        <small *ngIf="user.type_truck">
+         {{user.type_truck | slice:0:31}} <i *ngIf="user.type_truck.length > 31">...</i>
+        </small>
+        <small *ngIf="!user.type_truck">
+          ingresar datos tal como se muestran en la tarjeta de circulación
+        </small>
+      </ion-label>
+      <ion-icon *ngIf="user.type_truck != null" slot="end" name="checkmark-done-outline" class="check" (click)="typetruckView = true"></ion-icon>
+      <ion-icon *ngIf="user.type_truck == null" slot="end" name="alert-circle-outline" class="falt" (click)="typetruckView = true"></ion-icon>
+    </ion-item>
+    <ion-item linea="none" *ngIf="typetruckView">
+      <ion-select style="max-width: 100%;" placeholder="Selecciona un tipo de Camión" (ionChange)="saveInfo() ; typetruckView = false" [(ngModel)]="user.type_truck" [value]="user.type_truck" interface="action-sheet"> 
+        <ion-select-option value="Caja Seca">Caja Seca</ion-select-option>
+        <ion-select-option value="Plataforma">Plataforma</ion-select-option>
+        <ion-select-option value="Caja Seca Refrigerada">Caja Seca Refrigerada</ion-select-option>
+      </ion-select> 
+    </ion-item>
+    <!-- Tipo de camion -->
+
+    <!-- Carga Maxima -->
+    <ion-item lines="none">
+      <ion-label >
+        Carga máxima <br />
+        <small *ngIf="user.carga_maxima">
+         {{user.carga_maxima}}
+        </small>
+        <small *ngIf="!user.carga_maxima">
+          Ingresa el peso en KG
+        </small>
+      </ion-label>
+      <ion-icon *ngIf="user.carga_maxima != null" slot="end" name="checkmark-done-outline" class="check" (click)="cargaMaxView = true"></ion-icon>
+      <ion-icon *ngIf="user.carga_maxima == null" slot="end" name="alert-circle-outline" class="falt" (click)="cargaMaxView = true"></ion-icon>
+    </ion-item>
+    <ion-item linea="none" *ngIf="cargaMaxView">
+      <ion-input type="number" clearInput="true" placeholder="Ingresa Carga Máxima" [(ngModel)]="user.carga_maxima" [value]="user.carga_maxima" interface="action-sheet"></ion-input> 
+      <ion-icon slot="end" name="send-outline" class="check" (click)="saveInfo() ; cargaMaxView = false"></ion-icon>
+    </ion-item>
+    <!-- Carga Maxima -->
+
+    <!-- Permiso SCT -->
+    <ion-item lines="none">
+      <ion-label >
+        Permiso SCT <br />
+        <small *ngIf="user.permiso_sct">
+         {{user.permiso_sct | slice:0:31}} <i *ngIf="user.permiso_sct.length > 31">...</i>
+        </small>
+        <small *ngIf="!user.permiso_sct">
+          Falta información por enviar
+        </small>
+      </ion-label>
+      <ion-icon *ngIf="user.permiso_sct != null" slot="end" name="checkmark-done-outline" class="check" (click)="permisoSctView = true"></ion-icon>
+      <ion-icon *ngIf="user.permiso_sct == null" slot="end" name="alert-circle-outline" class="falt" (click)="permisoSctView = true"></ion-icon>
+    </ion-item>
+    <ion-item linea="none" *ngIf="permisoSctView">
+      <ion-input type="text"  clearInput="true" placeholder="Ingresa el permiso SCT"  [(ngModel)]="user.permiso_sct" [value]="user.permiso_sct" interface="action-sheet"></ion-input> 
+      <ion-icon slot="end" name="send-outline" class="check" (click)="saveInfo() ; permisoSctView = false"></ion-icon>
+    </ion-item>
+    <!-- Permiso SCT -->
+
+    <!-- Permiso SCT -->
+    <ion-item lines="none">
+      <ion-label >
+        Número de permiso <br />
+        <small *ngIf="user.permiso_number">
+         {{user.permiso_sct | slice:0:31}} <i *ngIf="user.permiso_number.length > 31">...</i>
+        </small>
+        <small *ngIf="!user.permiso_number">
+          Falta información por enviar
+        </small>
+      </ion-label>
+      <ion-icon *ngIf="user.permiso_number != null" slot="end" name="checkmark-done-outline" class="check" (click)="permisoNumView = true"></ion-icon>
+      <ion-icon *ngIf="user.permiso_number == null" slot="end" name="alert-circle-outline" class="falt" (click)="permisoNumView = true"></ion-icon>
+    </ion-item>
+    <ion-item linea="none" *ngIf="permisoNumView">
+      <ion-input type="text"  clearInput="true" placeholder="Ingresa el número de permiso"  [(ngModel)]="user.permiso_number" [value]="user.permiso_number" interface="action-sheet"></ion-input> 
+      <ion-icon slot="end" name="send-outline" class="check" (click)="saveInfo() ; permisoNumView = false"></ion-icon>
+    </ion-item>
+    <!-- Permiso SCT -->
+
+    <!-- Nombre de la aseguradora -->
+    <ion-item lines="none">
+      <ion-label >
+        Nombre de la aseguradora <br />
+        <small *ngIf="user.aseguradora">
+         {{user.aseguradora | slice:0:31}} <i *ngIf="user.aseguradora.length > 31">...</i>
+        </small>
+        <small *ngIf="!user.permiso_sct">
+          Falta información por enviar
+        </small>
+      </ion-label>
+      <ion-icon *ngIf="user.aseguradora != null" slot="end" name="checkmark-done-outline" class="check" (click)="aseguradoraView = true"></ion-icon>
+      <ion-icon *ngIf="user.aseguradora == null" slot="end" name="alert-circle-outline" class="falt" (click)="aseguradoraView = true"></ion-icon>
+    </ion-item>
+    <ion-item linea="none" *ngIf="aseguradoraView">
+      <ion-input input="text" clearInput="true" placeholder="Ingresa el nombre de la aseguradora" [(ngModel)]="user.aseguradora" [value]="user.aseguradora" interface="action-sheet"></ion-input> 
+      <ion-icon slot="end" name="send-outline" class="check" (click)="saveInfo() ; aseguradoraView = false"></ion-icon>
+    </ion-item>
+    <!-- Nombre de la aseguradora -->
+
+    <!-- Numero de póliza -->
+    <ion-item lines="none">
+      <ion-label >
+        Numero de póliza <br />
+        <small *ngIf="user.poliza">
+         {{user.poliza}}
+        </small>
+        <small *ngIf="!user.poliza">
+          Falta información por enviar
+        </small>
+      </ion-label>
+      <ion-icon *ngIf="user.poliza != null" slot="end" name="checkmark-done-outline" class="check" (click)="polizaView = true"></ion-icon>
+      <ion-icon *ngIf="user.poliza == null" slot="end" name="alert-circle-outline" class="falt" (click)="polizaView = true"></ion-icon>
+    </ion-item>
+    <ion-item linea="none" *ngIf="polizaView">
+      <ion-input type="text" clearInput="true" placeholder="Ingresa el número de poliza" [(ngModel)]="user.poliza" [value]="user.poliza" interface="action-sheet"></ion-input> 
+      <ion-icon slot="end" name="send-outline" class="check" (click)="saveInfo() ; polizaView = false"></ion-icon>
+    </ion-item>
+    <!-- Numero de póliza -->
+
+    <!-- Foto de póliza -->
+    <ion-item lines="none">
+      <ion-label >
+        Adjuntar documento de póliza <br />
+        <small *ngIf="user.poliza_doc">
+         Información enviada
+        </small>
+        <small *ngIf="!user.poliza_doc">
+          Falta información por enviar
+        </small>
+      </ion-label>
+      <ion-icon *ngIf="user.poliza_doc" slot="end" name="checkmark-done-outline" class="check" (click)="openFileInput('poliza')"></ion-icon>
+      <ion-icon *ngIf="!user.poliza_doc" slot="end" name="alert-circle-outline" class="falt" (click)="openFileInput('poliza')"></ion-icon>
+    </ion-item>
+    <!-- Foto de póliza -->
+
+    <!-- Foto delantera -->
+    <ion-item lines="none">
+      <ion-label >
+        Foto delantera de tu vehiculo <br />
+        <small *ngIf="user.pic_front">
+         Información enviada
+        </small>
+        <small *ngIf="!user.pic_front">
+          Falta información por enviar
+        </small>
+      </ion-label>
+      <ion-icon *ngIf="user.pic_front" slot="end" name="checkmark-done-outline" class="check" (click)="openFileInput('pic_front')"></ion-icon>
+      <ion-icon *ngIf="!user.pic_front" slot="end" name="alert-circle-outline" class="falt" (click)="openFileInput('pic_front')"></ion-icon>
+    </ion-item>
+    <!-- Foto delantera -->
+
+    <!-- Foto Traser -->
+    <ion-item lines="none">
+      <ion-label >
+        Foto trasera de tu vehiculo <br />
+        <small *ngIf="user.pic_back">
+         Información enviada
+        </small>
+        <small *ngIf="!user.pic_back">
+          Falta información por enviar
+        </small>
+      </ion-label>
+      <ion-icon *ngIf="user.pic_back" slot="end" name="checkmark-done-outline" class="check" (click)="openFileInput('pic_back')"></ion-icon>
+      <ion-icon *ngIf="!user.pic_back" slot="end" name="alert-circle-outline" class="falt" (click)="openFileInput('pic_back')"></ion-icon>
+    </ion-item>
+    <!-- Foto Traser -->
+
+    <!-- Foto L Derecho -->
+    <ion-item lines="none">
+      <ion-label >
+        Foto lado derecho de tu vehiculo <br />
+        <small *ngIf="user.pic_right">
+         Información enviada
+        </small>
+        <small *ngIf="!user.pic_right">
+          Falta información por enviar
+        </small>
+      </ion-label>
+      <ion-icon *ngIf="user.pic_right" slot="end" name="checkmark-done-outline" class="check" (click)="openFileInput('pic_right')"></ion-icon>
+      <ion-icon *ngIf="!user.pic_right" slot="end" name="alert-circle-outline" class="falt" (click)="openFileInput('pic_right')"></ion-icon>
+    </ion-item>
+    <!-- Foto L Derecho -->
+
+     <!-- Foto L Izquierdo -->
+     <ion-item lines="none">
+      <ion-label >
+        Foto lado izquierdo de tu vehiculo <br />
+        <small *ngIf="user.pic_left">
+         Información enviada
+        </small>
+        <small *ngIf="!user.pic_left">
+          Falta información por enviar
+        </small>
+      </ion-label>
+      <ion-icon *ngIf="user.pic_left" slot="end" name="checkmark-done-outline" class="check" (click)="openFileInput('pic_left')"></ion-icon>
+      <ion-icon *ngIf="!user.pic_left" slot="end" name="alert-circle-outline" class="falt" (click)="openFileInput('pic_left')"></ion-icon>
+    </ion-item>
+    <!-- Foto L Izquierdo -->
+  </ion-list>
+
+</ion-content>
+ 
+<ion-footer>
+  <!-- Menu Footer -->
+  <div class="menu_foot animate__animated animate__bounceInUp">
+    <ion-tabs>
+      <ion-tab-bar slot="bottom">
+        
+        <ion-tab-button routerLink="/home" routerDirection="forward">
+          <ion-icon src="assets/icon_home.svg"></ion-icon>
+          <ion-label>Inicio</ion-label>
+        </ion-tab-button> 
+
+        <ion-tab-button routerLink="/chats" routerDirection="forward">
+          <ion-icon src="assets/icon_chat.svg"></ion-icon> 
+          <ion-label>Chats</ion-label>
+        </ion-tab-button>
+
+        <ion-tab-button routerLink="/list-services" routerDirection="forward">
+          <ion-icon src="assets/service_icon.svg"></ion-icon> 
+          <ion-label>Servicios</ion-label>
+        </ion-tab-button>
+
+        <ion-tab-button routerLink="/profile" routerDirection="forward">
+          <ion-icon src="assets/icon_profile.svg"></ion-icon>
+          <ion-label>Perfil</ion-label>
+        </ion-tab-button>
+      </ion-tab-bar>
+    </ion-tabs>
+  </div>
+  <!-- Menu Footer -->
+</ion-footer>
